@@ -11,14 +11,16 @@ This project is a web-based application for managing workforce attendance. It co
 ## Frontend (React)
 - Navigate to `attendance` folder
 - Run:
-     cd attendance
-     npm install
-     npm start
+  
+      cd attendance
+      npm install
+      npm start
 
 
 ## Backend (Node.js)
 - Navigate to `backend` folder
 - Run:
+  
       cd Grad_project2
       npm i express
       nodemon
