@@ -202,7 +202,6 @@ const endOfDay = new Date(
     userId: user._id,
     date: { $gte: startOfDay, $lte: endOfDay }
   });
-
   
 
   if (!record) {
@@ -214,3 +213,4 @@ const endOfDay = new Date(
 
   res.json({ message: "Note added successfully", record });
 });
+
