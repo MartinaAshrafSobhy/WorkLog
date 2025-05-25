@@ -26,7 +26,11 @@ export const generateMonthlyReport = asyncHandler(async (req, res) => {
     const endDate = new Date(new Date(startDate).setMonth(startDate.getMonth() + 1));
     matchConditions.date = { $gte: startDate, $lt: endDate };
   }
-
+else if (year) {
+  const startDate = new Date(`${year}-01-01T00:00:00.000Z`);
+  const endDate = new Date(`${parseInt(year) + 1}-01-01T00:00:00.000Z`);
+  matchConditions.date = { $gte: startDate, $lt: endDate };
+}
   const report = await attendanceModel.aggregate([
     { $match: matchConditions },
     {
@@ -42,9 +46,9 @@ export const generateMonthlyReport = asyncHandler(async (req, res) => {
     {
       $group: {
         _id: "$userId",
-        totalPresent: { $sum: { $cond: [{ $eq: ["$status", "present"] }, 1, 0] } },
-        totalAbsent: { $sum: { $cond: [{ $eq: ["$status", "absent"] }, 1, 0] } },
-        totalLate: { $sum: { $cond: [{ $eq: ["$status", "late"] }, 1, 0] } },
+          totalPresent: { $sum: { $cond: [{ $eq: ["$status", "present"] }, 1, 0] } },
+          totalAbsent: { $sum: { $cond: [{ $eq: ["$status", "absent"] }, 1, 0] } },
+          totalLate: { $sum: { $cond: [{ $eq: ["$status", "late"] }, 1, 0] } },
         totalPermission: { $max: "$dailyPermission" },
         notes: { $push: "$note" },
       }
@@ -81,68 +85,6 @@ export const generateMonthlyReport = asyncHandler(async (req, res) => {
 )
 
 
-export const generateYearReport = asyncHandler(async (req, res) => {
-  
-    
-    let { year } = req.body;
-
-    
-    const startDate = new Date(year, 0, 1); 
-    const endDate = new Date(year, 11, 31, 23, 59, 59, 999); 
-
-   
-    const report = await attendanceModel.aggregate([
-      {
-        $match: {
-          date: { $gte: startDate, $lte: endDate },
-        },
-      },
-      {
-        $group: {
-          _id: "$userId",
-          totalPresent: { $sum: { $cond: [{ $eq: ["$status", "Present"] }, 1, 0] } },
-          totalAbsent: { $sum: { $cond: [{ $eq: ["$status", "Absent"] }, 1, 0] } },
-          totalLate: { $sum: { $cond: [{ $eq: ["$status", "Late"] }, 1, 0] } },
-          totalIncentives: { $sum: "$incentives" },
-        },
-      },
-      {
-        $lookup: {
-          from: "users", 
-          localField: "_id",
-          foreignField: "_id",
-          as: "user",
-        },
-      },
-      { $unwind: { path: "$user", preserveNullAndEmptyArrays: true } },
-      {
-        $project: {
-          _id: 0,
-          userId: "$_id",
-          name: "$user.name",
-          role: "$user.role",
-          department: "$user.department",
-          shift: "$user.shift",
-          totalPresent: 1,
-          totalAbsent: 1,
-          totalLate: 1,
-          totalPermission: 1,
-        },
-      },
-    ]);
-
-  
-
-     res.json({ message: "Done", report });
-
- return  res.status(500).json({ message: "false", message: "Server Error", error: error.message });
-  
-});
-
-
-
-
-
 
 
 
@@ -169,6 +111,11 @@ export const monthlyReportForUser = asyncHandler(async (req, res) => {
     const endDate = new Date(new Date(startDate).setMonth(startDate.getMonth() + 1));
     matchConditions.date = { $gte: startDate, $lt: endDate };
   }
+  else if (year) {
+  const startDate = new Date(`${year}-01-01T00:00:00.000Z`);
+  const endDate = new Date(`${parseInt(year) + 1}-01-01T00:00:00.000Z`);
+  matchConditions.date = { $gte: startDate, $lt: endDate };
+}
 
   const report = await attendanceModel.aggregate([
     { $match: matchConditions },

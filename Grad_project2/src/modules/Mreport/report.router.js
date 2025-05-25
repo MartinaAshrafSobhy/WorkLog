@@ -7,4 +7,5 @@ const router=Router()
 router
 .get('/Report',validation(reportSchema),reportCotroller.generateMonthlyReport)
 .get('/ReportForUser',validation(reportSchema),reportCotroller.monthlyReportForUser)
+
 export default router

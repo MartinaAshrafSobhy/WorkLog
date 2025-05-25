@@ -19,13 +19,7 @@ const userSchema=new Schema({
         enum:['Admin','User'],
         default:"User"
     },
-    email:{
-        type:String
-    },
-    confirmEmail:{
-        type:Boolean,
-        default:"false"
-    }
+    
 
 },{
     timestamps:true

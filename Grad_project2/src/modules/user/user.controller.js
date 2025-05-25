@@ -51,9 +51,9 @@ export const logIn = asyncHandler(async (req, res, next) => {
   }
 
 
-  //  if(!compare({plaintext:password,hashValue:userExist.password})){
-  //           return next(new Error('invalid  password',{cause:400}))
-  //       }
+   if(!compare({plaintext:password,hashValue:userExist.password})){
+            return next(new Error('invalid  password',{cause:400}))
+        }
 
   const token = GenerateToken({
     payload: { _id: userExist._id, name: userExist.name },
@@ -90,7 +90,7 @@ export const addAdmin=asyncHandler(
         return new Error("user is not exist")
     }
     user.role="Admin"
-    user.password=Hash({plaintext:req.body.password})
+    user.password=Hash({plaintext:password})
    
 
     await user.save()

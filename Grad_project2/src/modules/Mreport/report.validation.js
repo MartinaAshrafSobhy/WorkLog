@@ -5,9 +5,9 @@ import { generalFields } from '../../utils/generalFeildes.js'
 
 
 export const reportSchema=joi.object({
-    month:joi.string().required(),
+    month:joi.string(),
     year:joi.string().required(),
-    code:joi.string().required(),
+    code:joi.string(),
 }).required()
 
 

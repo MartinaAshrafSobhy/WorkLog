@@ -1,8 +1,6 @@
 import { asyncHandler } from "../../utils/errorHandler.js"
 import userModel from "../../../DB/models/user.model.js";
 import shiftModel from "../../../DB/models/shift.model.js";
-
-
 import attendanceModel from "../../../DB/models/attendance.model.js";
 import fs from "fs"
 import xlsx from "xlsx"
@@ -163,46 +161,41 @@ if (arrivalTime) {
       };
 
 
-
-
-
-   
-     
-
 export const updateRecord = asyncHandler(async (req, res, next) => {
   const { date, userCode, note } = req.body;
 
-  const isAdmin = await userModel.findById(req.user._id);
-  if (!isAdmin) {
-    return next(new Error("User is not allowed"));
-  }
-
+  
   const user = await userModel.findOne({ code: userCode });
   if (!user) {
     return next(new Error("User with this code does not exist", { cause: 404 }));
   }
 
+
  const rawDate = new Date(date);
 
-const startOfDay = new Date(
+const startOfDayUTC = new Date(Date.UTC(
   rawDate.getFullYear(),
   rawDate.getMonth(),
-  rawDate.getDate(), 
+  rawDate.getDate(),
   0, 0, 0, 0
-);
+));
 
-const endOfDay = new Date(
+const endOfDayUTC = new Date(Date.UTC(
   rawDate.getFullYear(),
   rawDate.getMonth(),
   rawDate.getDate(),
   23, 59, 59, 999
-);
+));
+
 
   const record = await attendanceModel.findOne({
     userId: user._id,
-    date: { $gte: startOfDay, $lte: endOfDay }
+    date: { $gte: startOfDayUTC, $lte: endOfDayUTC }
   });
+
   
+  
+
 
   if (!record) {
     return next(new Error("Attendance record does not exist", { cause: 404 }));
@@ -213,4 +206,3 @@ const endOfDay = new Date(
 
   res.json({ message: "Note added successfully", record });
 });
-

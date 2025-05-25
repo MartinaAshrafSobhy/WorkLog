@@ -15,7 +15,7 @@ export const updateSchema=joi.object({
     authorization:joi.string().required(),
     userCode:joi.string().required(),
     note:joi.string().required(),
-    // date:joi.date().required(),
+    date:joi.date().required(),
 }).required()
 
 
