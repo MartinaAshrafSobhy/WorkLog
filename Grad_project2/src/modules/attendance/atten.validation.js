@@ -12,8 +12,8 @@ export const tokenSchema=joi.object({
 
 
 export const updateSchema=joi.object({
-    authorization:joi.string().required(),
-    userCode:joi.string().required(),
+    authorization:joi.string(),
+    userCode:joi.string(),
     note:joi.string().required(),
     date:joi.date().required(),
 }).required()

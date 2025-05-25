@@ -171,29 +171,23 @@ export const updateRecord = asyncHandler(async (req, res, next) => {
   }
 
 
- const rawDate = new Date(date);
-
-const startOfDayUTC = new Date(Date.UTC(
-  rawDate.getFullYear(),
-  rawDate.getMonth(),
-  rawDate.getDate(),
-  0, 0, 0, 0
-));
-
-const endOfDayUTC = new Date(Date.UTC(
-  rawDate.getFullYear(),
-  rawDate.getMonth(),
-  rawDate.getDate(),
-  23, 59, 59, 999
-));
 
 
-  const record = await attendanceModel.findOne({
+ 
+const rawDate = new Date(date); // "2024-11-05"
+
+const startOfDay = new Date(rawDate);
+startOfDay.setUTCHours(0, 0, 0, 0);
+
+const endOfDay = new Date(rawDate);
+endOfDay.setUTCHours(23, 59, 59, 999);
+
+ const record = await attendanceModel.findOne({
     userId: user._id,
-    date: { $gte: startOfDayUTC, $lte: endOfDayUTC }
+    date: { $gte: startOfDay, $lte: endOfDay }
   });
-
   
+
   
 
 

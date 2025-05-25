@@ -8,6 +8,6 @@ const router=Router()
 router
 .post('/import', uploadFile({ customValidation: fileValidation.excel }).single("file"),Acontroller.importAttendance)
 .get('/allSheets',Acontroller.allSheets)
-.patch('/update',auth(),validation(updateSchema),Acontroller.updateRecord)
+.patch('/update',auth(),Acontroller.updateRecord)
 
 export default router
