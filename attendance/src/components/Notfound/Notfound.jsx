@@ -18,7 +18,7 @@ const styles = {
     container: {
       background: '#F2F2F2',
       textAlign: 'center',
-      margin: '50px',
+      margin: '60px',
       padding: '100px',
     },
     heading: {
