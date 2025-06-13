@@ -31,12 +31,12 @@ Create a `.env` file in the root directory of the project and add the following 
 
 ```env
 # Port the server will run on
-PORT=
+PORT=7000
 
 # MongoDB Atlas connection string
 CONNECTION=
 
-# Alternate MongoDB URI (if used)
+# Alternate MongoDB URI 
 MONGO_URI=
 
 # Local MongoDB URI (for local development)
@@ -54,8 +54,8 @@ SALT_ROUND=
 # Signature used for account confirmation
 CONFIRM_SIGNATURE=
 
-# Bearer token for API access (if needed)
-BEARER_TOKEN=
+# Bearer token for API access 
+BEARER_TOKEN=Hamada
 
 
 
