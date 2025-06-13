@@ -25,6 +25,13 @@ This project is a web-based application for managing workforce attendance. It co
       npm i express
       nodemon
 
+  ## Notes
+- Login as admin using:
+- Username: omar
+- Password: omar@yahoo1234
+
+ 
+
 ### 📦 Environment Variables (`.env`)
 
 Create a `.env` file in the root directory of the project and add the following variables:
@@ -66,10 +73,5 @@ BEARER_TOKEN=Hamada
 
 
 
-## Notes
-- Login as admin using:
-- Username: omar
-- Password: omar@yahoo1234
 
- 
   
