@@ -38,7 +38,8 @@ export const signUp = asyncHandler(async (req, res, next) => {
 
 
 
-export const logIn = asyncHandler(async (req, res, next) => {
+export const logIn = asyncHandler(
+async (req, res, next) => {
   const { name, password } = req.body;
 
   const userExist = await userModel.findOne({ name });
@@ -49,7 +50,6 @@ export const logIn = asyncHandler(async (req, res, next) => {
   if (userExist.role !== "Admin") {
     return next(new Error("Only admin can access"));
   }
-
 
    if(!compare({plaintext:password,hashValue:userExist.password})){
             return next(new Error('invalid  password',{cause:400}))

@@ -3,7 +3,7 @@ import userModel from "../../../DB/models/user.model.js";
 import { asyncHandler } from "../../utils/errorHandler.js";
 
 export const generateMonthlyReport = asyncHandler(async (req, res) => {
-  const { month, year, code } = req.query;
+  const { month, year, code } = req.body;
 
   const matchConditions = {};
 
@@ -80,6 +80,8 @@ else if (year) {
   if (!report.length) {
     return res.status(404).json({ success: false, message: "No attendance records found" });
   }
+  
+  
   return res.json({ success: true, report })
 }
 )
