@@ -28,7 +28,7 @@ This project is a web-based application for managing workforce attendance. It co
   ## Notes
 - Login as admin using:
 - Username: omar
-- Password: omar@yahoo1234
+- Password: omar@1234
 
  
 
